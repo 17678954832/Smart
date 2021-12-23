@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 public interface MallUserMapper {
+
     @Select("select * from mall_user where role=#{role}")
     MallUser findByRole(@Param("role") Integer role);
+
+    MallUser queryById(Integer id);
 }

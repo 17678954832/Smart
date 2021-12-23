@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace对应的是Dao层的java文件-->
+<!--id对应的是方法名-->
+<!--resultType返回值类型指向的是对应的实体对象-->
+<mapper namespace="com.muhan.smart.dao.MallCategoryMapper">
+    <!--公用部分-->
+    <sql id="Base_column_list">
+        id, parent_id, name, status, sort_order, create_time, update_time
+    </sql>
+
+    <!--查询语句-->
+    <select id="queryById" resultType="com.muhan.smart.pojo.MallCategory">
+        select
+        <include refid="Base_column_list" />
+        from mall_category
+        where id = #{id};
+    </select>
+</mapper>
