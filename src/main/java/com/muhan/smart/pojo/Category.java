@@ -11,7 +11,7 @@ import java.util.Date;
  * @date 2021/12/20 22:15
  */
 @Data
-public class MallCategory {
+public class Category {
     private Integer id;
     private Integer parentId;
     private String name;

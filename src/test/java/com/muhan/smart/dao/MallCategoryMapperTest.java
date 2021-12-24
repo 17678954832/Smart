@@ -1,7 +1,7 @@
 package com.muhan.smart.dao;
 
 import com.muhan.smart.SmartApplicationTests;
-import com.muhan.smart.pojo.MallCategory;
+import com.muhan.smart.pojo.Category;
 import org.junit.Test;
 
 import javax.annotation.Resource;
@@ -11,17 +11,17 @@ import javax.annotation.Resource;
 public class MallCategoryMapperTest extends SmartApplicationTests {
 
     @Resource
-    private MallCategoryMapper mallCategoryMapper;
+    private CategoryMapper mallCategoryMapper;
 
     @Test
     public void findById() {
-        MallCategory mallCategory = mallCategoryMapper.findById(100001);
+        Category mallCategory = mallCategoryMapper.findById(100001);
         System.out.println(mallCategory.toString());
     }
 
     @Test
     public void queryById() {
-        MallCategory mallCategory = mallCategoryMapper.queryById(100001);
+        Category mallCategory = mallCategoryMapper.queryById(100001);
         System.out.println(mallCategory.toString());
     }
 }

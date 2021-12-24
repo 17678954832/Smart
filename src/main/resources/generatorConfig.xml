@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--配置生成器-->
+<generatorConfiguration>
+    <!--本地mysql的jar包-->
+    <classPathEntry location="G:\mysql-dirver\mysql-connector-java-5.1.6.jar" />
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <!--解决xml文件多次生成会追加生成的问题-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+
+        <!--去掉生成的类的大量注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!--数据库配置-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/malldb?characterEncoding=utf-8"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!--
+            true:使用BigDecimal对应DECIMLAL和NUMERIC类型
+            false：默认
+        -->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--实体类配置-->
+        <javaModelGenerator targetPackage="com.muhan.smart.pojo" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--<property name="trimStrings" value="true" />-->        <!--去掉空格-->
+        </javaModelGenerator>
+
+        <!--对应的xml文件-->
+        <sqlMapGenerator targetPackage="mappers"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!--dao下面的接口类-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.muhan.smart.dao"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+
+        <!--表配置，后面的是不生成这几个方法 tableName是数据库表名称，domainObjectName是生成的类的名称-->
+        <table tableName="mall_order" domainObjectName="Order" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+
+        <table tableName="mall_order_item" domainObjectName="OrderItem" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+
+
+    </context>
+</generatorConfiguration>

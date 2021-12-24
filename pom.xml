@@ -97,6 +97,19 @@
                     </execution>
                 </executions>
             </plugin>
+
+
+            <!--mybatis-generator自动生成器插件-->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.7</version>
+                <!--再次生成会覆盖掉之前的-->
+                <configuration>
+                    <overwrite>true</overwrite>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
