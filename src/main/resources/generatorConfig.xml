@@ -2,6 +2,8 @@
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--mubatis三剑客之一的 generator配置文件-->
+
 <!--配置生成器-->
 <generatorConfiguration>
     <!--本地mysql的jar包-->
@@ -50,10 +52,16 @@
 
 
         <!--表配置，后面的是不生成这几个方法 tableName是数据库表名称，domainObjectName是生成的类的名称-->
-        <table tableName="mall_order" domainObjectName="Order" enableCountByExample="false"
+        <!--<table tableName="mall_order" domainObjectName="Order" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
 
         <table tableName="mall_order_item" domainObjectName="OrderItem" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+
+        <table tableName="mall_pay_info" domainObjectName="PayInfo" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+        <!--user表-->
+        <table tableName="mall_user" domainObjectName="User" enableCountByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
 
 
