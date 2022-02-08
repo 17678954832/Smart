@@ -1,19 +1,22 @@
 package com.muhan.smart.dao;
 
 import com.muhan.smart.pojo.Category;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
-//@Mapper  可以不用写，在主类里面加MapperScan也可以
+import java.util.List;
+
 public interface CategoryMapper {
+    int deleteByPrimaryKey(Integer id);
 
-    //mybits使用注解的方式
-    @Select("select * from mall_category where id = #{id}")
-    Category findById(@Param("id") Integer id);
+    int insert(Category record);
 
-    //mtbatis使用xml的方式
-    Category queryById(Integer id);
+    int insertSelective(Category record);
 
+    Category selectByPrimaryKey(Integer id);
 
+    int updateByPrimaryKeySelective(Category record);
 
+    int updateByPrimaryKey(Category record);
+
+    //查询所有
+    List<Category> selectAll();
 }

@@ -6,6 +6,9 @@ package com.muhan.smart.consts;
  * @Date 2022/1/28 17:41
  */
 public class SmartConst {
-    //
+    //SessionId
     public static final String CURRENT_USER = "currentUser";
+
+    //ParentId
+    public static final Integer ROOT_PARENT_ID = 0;
 }
