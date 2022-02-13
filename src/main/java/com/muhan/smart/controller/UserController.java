@@ -1,7 +1,6 @@
 package com.muhan.smart.controller;
 
 import com.muhan.smart.consts.SmartConst;
-import com.muhan.smart.enums.ResponseEnum;
 import com.muhan.smart.form.UserLoginForm;
 import com.muhan.smart.form.UserRegisterForm;
 import com.muhan.smart.pojo.User;
@@ -10,7 +9,6 @@ import com.muhan.smart.view.ResponseView;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,11 +35,12 @@ public class UserController {
      * @return
      */
     @PostMapping("/user/register")
-    public ResponseView register(@Valid @RequestBody UserRegisterForm userForm,BindingResult bindingResult){
+    public ResponseView register(@Valid @RequestBody UserRegisterForm userForm){
         //表单验证，username是否为空
-        if (bindingResult.hasErrors()) {
+        //统一异常处理
+        /*if (bindingResult.hasErrors()) {
             return ResponseView.error(ResponseEnum.PARAM_ERROR, bindingResult);
-           }
+           }*/
 
         //进行注册功能
         //拷贝对象
@@ -54,17 +53,17 @@ public class UserController {
     /**
      * 登录
      * @param userLoginForm
-     * @param bindingResult
      * @param session
      * @return
      */
     @PostMapping("/user/login")
-    public ResponseView<User> login(@Valid @RequestBody UserLoginForm userLoginForm, BindingResult bindingResult,
+    public ResponseView<User> login(@Valid @RequestBody UserLoginForm userLoginForm,
                                     HttpSession session){
         //表单验证，username是否为空
-        if (bindingResult.hasErrors()) {
+        //已经做了统一异常处理，可以不用判断
+        /*if (bindingResult.hasErrors()) {
             return ResponseView.error(ResponseEnum.PARAM_ERROR, bindingResult);
-        }
+        }*/
         //登录成功
         ResponseView<User> userResponseView = userService.login(userLoginForm.getUsername(), userLoginForm.getPassword());
 

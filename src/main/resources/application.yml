@@ -1,10 +1,15 @@
-# 应用名称
+# 数据库配置
 spring:
+  #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
     url: jdbc:mysql://127.0.0.1:3306/malldb?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+  #redis  没有设置密码，不用配置密码
+  redis:
+    host: 127.0.0.1
+    port: 6379
 
 #配置映射，实体类和数据库字段可以不对应，
 mybatis:
@@ -25,6 +30,7 @@ server:
   servlet:
     session:
       timeout: 120
+
 
 
 

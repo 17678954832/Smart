@@ -1,0 +1,31 @@
+###获取当前用户收货地址
+GET http://localhost:8080/shippings
+Accept: application/json
+
+###获取登录用户信息
+GET http://localhost:8080/user
+Accept: application/json
+
+###注册
+POST http://localhost:8080/user/register
+Content-Type: application/json
+
+{
+  "username": "zhou",
+  "password": "123",
+  "email": "110@qq.com"
+}
+
+###登录
+POST http://localhost:8080/user/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+###
+
+
+
