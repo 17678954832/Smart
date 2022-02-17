@@ -7,10 +7,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @Author: Muhan.Zhou
  * @Description 拦截器配置
- * @Date 2022/1/29 11:31
+ * @Date 2022/1/29 11:31   这里要设置跨域
  */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
+    //TODO  跨域
+    /*@Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        WebMvcConfigurer.super.configureDefaultServletHandling(configurer);
+    }*/
+
     /**
      * 配置拦截器
      * @param registry

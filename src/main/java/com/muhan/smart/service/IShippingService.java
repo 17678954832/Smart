@@ -2,7 +2,7 @@ package com.muhan.smart.service;
 
 import com.github.pagehelper.PageInfo;
 import com.muhan.smart.form.ShippingForm;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public interface IShippingService {
      * @param shippingForm  入参对象
      * @return
      */
-    ResponseView<Map<String, Integer>> add(Integer uid, ShippingForm shippingForm);
+    ResponseVo<Map<String, Integer>> add(Integer uid, ShippingForm shippingForm);
 
     /**
      * 删除地址
@@ -27,7 +27,7 @@ public interface IShippingService {
      * @param shippingId  地址id
      * @return
      */
-    ResponseView delete(Integer uid, Integer shippingId);
+    ResponseVo delete(Integer uid, Integer shippingId);
 
     /**
      * 修改地址
@@ -36,7 +36,7 @@ public interface IShippingService {
      * @param shippingForm 入参对象
      * @return
      */
-    ResponseView update(Integer uid, Integer shippingId,ShippingForm shippingForm);
+    ResponseVo update(Integer uid, Integer shippingId, ShippingForm shippingForm);
 
     /**
      * 地址列表
@@ -45,5 +45,5 @@ public interface IShippingService {
      * @param pageSize  页面条数
      * @return
      */
-    ResponseView<PageInfo> list(Integer uid, Integer pageNum,Integer pageSize);
+    ResponseVo<PageInfo> list(Integer uid, Integer pageNum, Integer pageSize);
 }

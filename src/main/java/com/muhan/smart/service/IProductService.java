@@ -1,8 +1,8 @@
 package com.muhan.smart.service;
 
 import com.github.pagehelper.PageInfo;
-import com.muhan.smart.view.ProductDetailView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ProductDetailVo;
+import com.muhan.smart.vo.ResponseVo;
 
 /**
  * @Author: Muhan.Zhou
@@ -17,7 +17,7 @@ public interface IProductService {
      * @param pageSize  分页大小
      * @return
      */
-    ResponseView<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize);
+    ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize);
 
 
     /**
@@ -25,5 +25,5 @@ public interface IProductService {
      * @param productId
      * @return
      */
-    ResponseView<ProductDetailView> detail(Integer productId);
+    ResponseVo<ProductDetailVo> detail(Integer productId);
 }

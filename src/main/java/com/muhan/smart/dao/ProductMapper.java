@@ -27,4 +27,11 @@ public interface ProductMapper {
      */
     List<Product> selectByCategoryIdSet(@Param("categoryIdSet") Set<Integer> categoryIdSet);
 
+    /**
+     * 通过id集合从数据库查询商品
+     * @param productIdSet
+     * @return  product集合
+     */
+    List<Product> selectByProductIdSet(@Param("productIdSet") Set<Integer> productIdSet);
+
 }

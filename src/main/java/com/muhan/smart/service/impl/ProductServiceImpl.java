@@ -6,9 +6,9 @@ import com.muhan.smart.dao.ProductMapper;
 import com.muhan.smart.pojo.Product;
 import com.muhan.smart.service.ICategoryService;
 import com.muhan.smart.service.IProductService;
-import com.muhan.smart.view.ProductDetailView;
-import com.muhan.smart.view.ProductView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ProductDetailVo;
+import com.muhan.smart.vo.ProductVo;
+import com.muhan.smart.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class ProductServiceImpl implements IProductService {
      * @return
      */
     @Override
-    public ResponseView<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize) {
+    public ResponseVo<PageInfo> list(Integer categoryId, Integer pageNum, Integer pageSize) {
         //new一个集合用来存放查出来的数据
         Set<Integer> categoryIdSet = new HashSet<>();
 
@@ -70,20 +70,20 @@ public class ProductServiceImpl implements IProductService {
         //用查出来的id集合去product查商品
         List<Product> productList = productMapper.selectByCategoryIdSet(categoryIdSet);
 
-        List<ProductView> productViewList = productList.stream()
+        List<ProductVo> productVoList = productList.stream()
                 .map(e -> {
-                    ProductView productView = new ProductView();
-                    BeanUtils.copyProperties(e, productView);
-                    return productView;
+                    ProductVo productVo = new ProductVo();
+                    BeanUtils.copyProperties(e, productVo);
+                    return productVo;
                 })
                 .collect(Collectors.toList());
 
         //productList 数据库里面查出来的信息
-        //productViewList  返回view对象
+        //productVoList  返回view对象
         PageInfo pageInfo = new PageInfo<>(productList);
-        pageInfo.setList(productViewList);
+        pageInfo.setList(productVoList);
 
-        return ResponseView.success(pageInfo);
+        return ResponseVo.success(pageInfo);
     }
 
     /**
@@ -92,23 +92,23 @@ public class ProductServiceImpl implements IProductService {
      * @return
      */
     @Override
-    public ResponseView<ProductDetailView> detail(Integer productId) {
+    public ResponseVo<ProductDetailVo> detail(Integer productId) {
         //查询数据库
         Product product = productMapper.selectByPrimaryKey(productId);
 
         //判断,商品下架或删除
         //if (product.getStatus().equals(OFF_SALE || DELETE)  )
         if (product.getStatus().equals(OFF_SALE.getCode()) || product.getStatus().equals(DELETE.getCode())){
-            return ResponseView.error(PRODUCT_OFF_SALE_OR_DELETE);
+            return ResponseVo.error(PRODUCT_OFF_SALE_OR_DELETE);
         }
 
         //对象转换
-        ProductDetailView productDetailView = new ProductDetailView();
-        BeanUtils.copyProperties(product,productDetailView);
+        ProductDetailVo productDetailVo = new ProductDetailVo();
+        BeanUtils.copyProperties(product, productDetailVo);
 
         //库存比较敏感，不显示回去
         //如果大于100，就显示100，不大于就显示本身
-        productDetailView.setStock(product.getStock() > 100 ? 100 : product.getStock());
-        return ResponseView.success(productDetailView);
+        productDetailVo.setStock(product.getStock() > 100 ? 100 : product.getStock());
+        return ResponseVo.success(productDetailVo);
     }
 }

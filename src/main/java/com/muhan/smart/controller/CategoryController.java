@@ -1,8 +1,8 @@
 package com.muhan.smart.controller;
 
 import com.muhan.smart.service.ICategoryService;
-import com.muhan.smart.view.CategoryView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.CategoryVo;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class CategoryController {
     private ICategoryService iCategoryService;
 
     @GetMapping("/categories")
-    public ResponseView<List<CategoryView>> selectAll(){
+    public ResponseVo<List<CategoryVo>> selectAll(){
 
         return iCategoryService.selectAll();
     }

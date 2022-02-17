@@ -190,6 +190,23 @@
       </foreach>
     </if>
   </select>
+
+  <!--通过查出来的id集合去查询商品-->
+  <!--status  1：在售  2：下架  3：删除-->
+  <!--categoryIdSet如果是null的话查询所有-->
+  <select id="selectByProductIdSet" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mall_product
+    <where>
+      <if test="productIdSet.size() > 0">
+        id in
+        <foreach collection="productIdSet" item="item" index="index" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </select>
   
 
 </mapper>

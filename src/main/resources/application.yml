@@ -10,6 +10,12 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+  #mq
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 
 #配置映射，实体类和数据库字段可以不对应，
 mybatis:

@@ -2,8 +2,11 @@ package com.muhan.smart.service;
 
 import com.muhan.smart.form.CartAddForm;
 import com.muhan.smart.form.CartUpdataForm;
-import com.muhan.smart.view.CartView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.pojo.Cart;
+import com.muhan.smart.vo.CartVo;
+import com.muhan.smart.vo.ResponseVo;
+
+import java.util.List;
 
 /**
  * @Author: Muhan.Zhou
@@ -17,7 +20,7 @@ public interface ICartService {
      * @param cartAddForm
      * @return
      */
-    ResponseView<CartView> add(Integer uid,CartAddForm cartAddForm);
+    ResponseVo<CartVo> add(Integer uid, CartAddForm cartAddForm);
 
 
     /**
@@ -25,7 +28,7 @@ public interface ICartService {
      * @param uid
      * @return
      */
-    ResponseView<CartView> list(Integer uid);
+    ResponseVo<CartVo> list(Integer uid);
 
     /**
      * 更新购物车
@@ -34,7 +37,7 @@ public interface ICartService {
      * @param form  参数
      * @return
      */
-    ResponseView<CartView> update(Integer uid, Integer productId , CartUpdataForm form);
+    ResponseVo<CartVo> update(Integer uid, Integer productId , CartUpdataForm form);
 
 
     /**
@@ -43,27 +46,34 @@ public interface ICartService {
      * @param productId
      * @return
      */
-    ResponseView<CartView> delete(Integer uid, Integer productId);
+    ResponseVo<CartVo> delete(Integer uid, Integer productId);
 
     /**
      * 全选购物车
      * @param uid
      * @return
      */
-    ResponseView<CartView> selectAll(Integer uid);
+    ResponseVo<CartVo> selectAll(Integer uid);
 
     /**
      * 全不选购物车
      * @param uid
      * @return
      */
-    ResponseView<CartView> unSelectAll(Integer uid);
+    ResponseVo<CartVo> unSelectAll(Integer uid);
 
     /**
      * 商品的总和
      * @param uid
      * @return
      */
-    ResponseView<Integer> sum(Integer uid);
+    ResponseVo<Integer> sum(Integer uid);
+
+    /**
+     * 获取购物车
+     * @param uid
+     * @return
+     */
+    List<Cart> listForCart(Integer uid);
 
 }

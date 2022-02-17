@@ -2,8 +2,8 @@ package com.muhan.smart.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.muhan.smart.service.IProductService;
-import com.muhan.smart.view.ProductDetailView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ProductDetailVo;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +31,9 @@ public class ProductController {
      * @return
      */
     @GetMapping("/products")
-    public ResponseView<PageInfo> list(@RequestParam(required = false) Integer categoryId,
-                                       @RequestParam(required = false , defaultValue = "1") Integer pageNum,
-                                       @RequestParam(required = false , defaultValue = "10")  Integer pageSize){
+    public ResponseVo<PageInfo> list(@RequestParam(required = false) Integer categoryId,
+                                     @RequestParam(required = false , defaultValue = "1") Integer pageNum,
+                                     @RequestParam(required = false , defaultValue = "10")  Integer pageSize){
 
         return productService.list(categoryId, pageNum, pageSize);
     }
@@ -45,7 +45,7 @@ public class ProductController {
      * @return
      */
     @GetMapping("/products/{productId}")
-    public ResponseView<ProductDetailView> detail(@PathVariable Integer productId){
+    public ResponseVo<ProductDetailVo> detail(@PathVariable Integer productId){
         return productService.detail(productId);
     }
 }

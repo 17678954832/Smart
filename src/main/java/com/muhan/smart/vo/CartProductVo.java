@@ -1,4 +1,4 @@
-package com.muhan.smart.view;
+package com.muhan.smart.vo;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * @Date 2022/2/9 20:34
  */
 @Data
-public class CartProductView {
+public class CartProductVo {
 
     private Integer productId;
 
@@ -32,7 +32,7 @@ public class CartProductView {
 
     private Boolean productSelected;  //是否选中该商品
 
-    public CartProductView(Integer productId, Integer quantity, String productName, String productSubtitle, String productMainImage, BigDecimal productPrice, Integer productStatus, BigDecimal productTotalPrice, Integer productStock, Boolean productSelected) {
+    public CartProductVo(Integer productId, Integer quantity, String productName, String productSubtitle, String productMainImage, BigDecimal productPrice, Integer productStatus, BigDecimal productTotalPrice, Integer productStock, Boolean productSelected) {
         this.productId = productId;
         this.quantity = quantity;
         this.productName = productName;

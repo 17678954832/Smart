@@ -4,8 +4,8 @@ import com.muhan.smart.form.CartAddForm;
 import com.muhan.smart.form.CartUpdataForm;
 import com.muhan.smart.pojo.User;
 import com.muhan.smart.service.ICartService;
-import com.muhan.smart.view.CartView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.CartVo;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class CartController {
      * @return
      */
     @GetMapping("/carts")
-    public ResponseView<CartView> list(HttpSession session){
+    public ResponseVo<CartVo> list(HttpSession session){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.list(user.getId());
     }
@@ -45,7 +45,7 @@ public class CartController {
      * @return
      */
     @PostMapping("/carts")
-    public ResponseView<CartView> add(@Valid @RequestBody CartAddForm cartAddForm, HttpSession session){
+    public ResponseVo<CartVo> add(@Valid @RequestBody CartAddForm cartAddForm, HttpSession session){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.add(user.getId(), cartAddForm);
     }
@@ -58,9 +58,9 @@ public class CartController {
      * @return
      */
     @PutMapping("/carts/{productId}")
-    public ResponseView<CartView> update(@Valid @RequestBody CartUpdataForm cartUpdataForm,
-                                         HttpSession session,
-                                         @PathVariable Integer productId){
+    public ResponseVo<CartVo> update(@Valid @RequestBody CartUpdataForm cartUpdataForm,
+                                     HttpSession session,
+                                     @PathVariable Integer productId){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.update(user.getId(),productId,cartUpdataForm);
     }
@@ -72,8 +72,8 @@ public class CartController {
      * @return
      */
     @DeleteMapping("/carts/{productId}")
-    public ResponseView<CartView> delete(HttpSession session,
-                                         @PathVariable Integer productId){
+    public ResponseVo<CartVo> delete(HttpSession session,
+                                     @PathVariable Integer productId){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.delete(user.getId(),productId);
     }
@@ -84,7 +84,7 @@ public class CartController {
      * @return
      */
     @PutMapping("/carts/selectAll")
-    public ResponseView<CartView> selectAll(HttpSession session){
+    public ResponseVo<CartVo> selectAll(HttpSession session){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.selectAll(user.getId());
     }
@@ -95,13 +95,13 @@ public class CartController {
      * @return
      */
     @PutMapping("/carts/unSelectAll")
-    public ResponseView<CartView> unselectAll(HttpSession session){
+    public ResponseVo<CartVo> unselectAll(HttpSession session){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.unSelectAll(user.getId());
     }
 
     @GetMapping("/carts/products/sum")
-    public ResponseView<Integer> sum(HttpSession session){
+    public ResponseVo<Integer> sum(HttpSession session){
         User user = (User) session.getAttribute(CURRENT_USER);
         return cartService.sum(user.getId());
     }

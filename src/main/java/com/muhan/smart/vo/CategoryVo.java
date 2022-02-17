@@ -1,4 +1,4 @@
-package com.muhan.smart.view;
+package com.muhan.smart.vo;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @Date 2022/1/31 10:18
  */
 @Data
-public class CategoryView {
+public class CategoryVo {
 
     private Integer id;
 
@@ -20,5 +20,5 @@ public class CategoryView {
 
     private Integer sortOrder;    //排序
 
-    private List<CategoryView> subCategories;    //子目录
+    private List<CategoryVo> subCategories;    //子目录
 }

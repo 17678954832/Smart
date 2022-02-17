@@ -4,7 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.muhan.smart.SmartApplicationTests;
 import com.muhan.smart.enums.ResponseEnum;
 import com.muhan.smart.form.ShippingForm;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Assert;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 
-import static org.junit.Assert.*;
 @Slf4j
 public class IShippingServiceTest extends SmartApplicationTests {
 
@@ -43,17 +42,17 @@ public class IShippingServiceTest extends SmartApplicationTests {
     }
 
     public void add() {
-        ResponseView<Map<String, Integer>> responseView = shippingService.add(uid, shippingForm);
-        log.info("resp={}" + responseView);
-        this.shippingId = responseView.getData().get("shippingId");
-        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseView.getStatus());
+        ResponseVo<Map<String, Integer>> responseVo = shippingService.add(uid, shippingForm);
+        log.info("resp={}" + responseVo);
+        this.shippingId = responseVo.getData().get("shippingId");
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
     }
 
     @After
     public void delete() {
-        ResponseView responseView = shippingService.delete(uid, shippingId);
-        log.info("resp={}" , responseView);
-        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseView.getStatus());
+        ResponseVo responseVo = shippingService.delete(uid, shippingId);
+        log.info("resp={}" , responseVo);
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
     }
 
     @Test
@@ -62,14 +61,14 @@ public class IShippingServiceTest extends SmartApplicationTests {
         shippingForm.setReceiverMobile("110111101111");
         shippingForm.setReceiverName("李四");
         shippingForm.setReceiverCity("贵阳");
-        ResponseView responseView = shippingService.update(uid, shippingId, shippingForm);
-        log.info("resp={}" , responseView);
-        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseView.getStatus());
+        ResponseVo responseVo = shippingService.update(uid, shippingId, shippingForm);
+        log.info("resp={}" , responseVo);
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
     }
 
     @Test
     public void list() {
-        ResponseView<PageInfo> list = shippingService.list(uid,1,2);
+        ResponseVo<PageInfo> list = shippingService.list(uid,1,2);
         log.info("list={}" , list);
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),list.getStatus());
     }

@@ -3,8 +3,8 @@ package com.muhan.smart.service;
 import com.github.pagehelper.PageInfo;
 import com.muhan.smart.SmartApplicationTests;
 import com.muhan.smart.enums.ResponseEnum;
-import com.muhan.smart.view.ProductDetailView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ProductDetailVo;
+import com.muhan.smart.vo.ResponseVo;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +19,13 @@ public class IProductServiceTest extends SmartApplicationTests {
 
     @Test
     public void list() {
-        ResponseView<PageInfo> responseView = productService.list(null, 1, 1);
-        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),responseView.getStatus());
+        ResponseVo<PageInfo> responseVo = productService.list(null, 1, 1);
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), responseVo.getStatus());
     }
 
     @Test
     public void detail(){
-        ResponseView<ProductDetailView> detail = productService.detail(26);
+        ResponseVo<ProductDetailVo> detail = productService.detail(26);
         Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),detail.getStatus());
     }
 }

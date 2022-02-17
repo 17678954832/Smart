@@ -5,7 +5,7 @@ import com.muhan.smart.enums.ResponseEnum;
 import com.muhan.smart.enums.RoleEnum;
 import com.muhan.smart.pojo.User;
 import com.muhan.smart.service.IUserService;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +33,9 @@ public class UserServiceImplTest extends SmartApplicationTests {
         //register();
 
         //登录
-        ResponseView<User> userResponseView = userService.login(USERNAME, PASSWORD);
+        ResponseVo<User> userResponseVo = userService.login(USERNAME, PASSWORD);
 
         //判断登录状态是否为0  前面是我们期待的，后面是实际的
-        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(),userResponseView.getStatus());
+        Assert.assertEquals(ResponseEnum.SUCCESS.getCode(), userResponseVo.getStatus());
     }
 }

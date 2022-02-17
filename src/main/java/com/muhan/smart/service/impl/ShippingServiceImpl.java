@@ -7,7 +7,7 @@ import com.muhan.smart.enums.ResponseEnum;
 import com.muhan.smart.form.ShippingForm;
 import com.muhan.smart.pojo.Shipping;
 import com.muhan.smart.service.IShippingService;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,20 +35,20 @@ public class ShippingServiceImpl implements IShippingService {
      * @return  地址id
      */
     @Override
-    public ResponseView<Map<String, Integer>> add(Integer uid, ShippingForm shippingForm) {
+    public ResponseVo<Map<String, Integer>> add(Integer uid, ShippingForm shippingForm) {
         Shipping shipping = new Shipping();
         BeanUtils.copyProperties(shippingForm,shipping);
         shipping.setUserId(uid);
         int row = shippingMapper.insertSelective(shipping);
         if (row == 0){
-            return ResponseView.error(ResponseEnum.ERROR);
+            return ResponseVo.error(ResponseEnum.ERROR);
         }
 
         //字段少，可以直接用map，没必要新建vo对象
         Map<String, Integer> map = new HashMap<>();
         map.put("shippingId",shipping.getId());
 
-        return ResponseView.success(map);
+        return ResponseVo.success(map);
     }
 
     /**
@@ -58,13 +58,13 @@ public class ShippingServiceImpl implements IShippingService {
      * @return
      */
     @Override
-    public ResponseView delete(Integer uid, Integer shippingId) {
+    public ResponseVo delete(Integer uid, Integer shippingId) {
         int row = shippingMapper.deleteByIdAndUid(uid, shippingId);
 
         if (row == 0){
-            return ResponseView.error(ResponseEnum.DELETE_SHIPPING_FAIL);
+            return ResponseVo.error(ResponseEnum.DELETE_SHIPPING_FAIL);
         }
-        return ResponseView.success();
+        return ResponseVo.success();
     }
 
     /**
@@ -75,7 +75,7 @@ public class ShippingServiceImpl implements IShippingService {
      * @return
      */
     @Override
-    public ResponseView update(Integer uid, Integer shippingId, ShippingForm shippingForm) {
+    public ResponseVo update(Integer uid, Integer shippingId, ShippingForm shippingForm) {
 
         Shipping shipping = new Shipping();
         BeanUtils.copyProperties(shippingForm,shipping);
@@ -85,9 +85,9 @@ public class ShippingServiceImpl implements IShippingService {
         //判断
         int row = shippingMapper.updateByPrimaryKeySelective(shipping);
         if (row == 0){
-            return ResponseView.error(ResponseEnum.ERROR);
+            return ResponseVo.error(ResponseEnum.ERROR);
         }
-        return ResponseView.success();
+        return ResponseVo.success();
     }
 
     /**
@@ -98,11 +98,11 @@ public class ShippingServiceImpl implements IShippingService {
      * @return
      */
     @Override
-    public ResponseView<PageInfo> list(Integer uid, Integer pageNum, Integer pageSize) {
+    public ResponseVo<PageInfo> list(Integer uid, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         List<Shipping> shippings = shippingMapper.selectByUid(uid);
         
         PageInfo pageInfo = new PageInfo(shippings);
-        return ResponseView.success(pageInfo);
+        return ResponseVo.success(pageInfo);
     }
 }

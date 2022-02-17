@@ -5,7 +5,7 @@ import com.muhan.smart.consts.SmartConst;
 import com.muhan.smart.form.ShippingForm;
 import com.muhan.smart.pojo.User;
 import com.muhan.smart.service.IShippingService;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,11 +31,11 @@ public class ShippingController {
      * @return
      */
     @PostMapping("/shippings")
-    public ResponseView add(@Valid @RequestBody ShippingForm shippingForm, HttpSession session){
+    public ResponseVo add(@Valid @RequestBody ShippingForm shippingForm, HttpSession session){
         User user = (User) session.getAttribute(SmartConst.CURRENT_USER);
 
-        ResponseView<Map<String, Integer>> responseView = shippingService.add(user.getId(), shippingForm);
-        return responseView;
+        ResponseVo<Map<String, Integer>> responseVo = shippingService.add(user.getId(), shippingForm);
+        return responseVo;
     }
 
     /**
@@ -45,11 +45,11 @@ public class ShippingController {
      * @return
      */
     @DeleteMapping("/shippings/{shippingId}")
-    public ResponseView delete(@PathVariable Integer shippingId,HttpSession session){
+    public ResponseVo delete(@PathVariable Integer shippingId, HttpSession session){
         User user = (User) session.getAttribute(SmartConst.CURRENT_USER);
 
-        ResponseView responseView = shippingService.delete(user.getId(), shippingId);
-        return responseView;
+        ResponseVo responseVo = shippingService.delete(user.getId(), shippingId);
+        return responseVo;
     }
 
     /**
@@ -60,11 +60,11 @@ public class ShippingController {
      * @return
      */
     @PutMapping("/shippings/{shippingId}")
-    public ResponseView update(@PathVariable Integer shippingId,HttpSession session,
-                               @Valid @RequestBody ShippingForm shippingForm){
+    public ResponseVo update(@PathVariable Integer shippingId, HttpSession session,
+                             @Valid @RequestBody ShippingForm shippingForm){
         User user = (User) session.getAttribute(SmartConst.CURRENT_USER);
-        ResponseView responseView = shippingService.update(user.getId(), shippingId, shippingForm);
-        return responseView;
+        ResponseVo responseVo = shippingService.update(user.getId(), shippingId, shippingForm);
+        return responseVo;
     }
 
     /**
@@ -75,13 +75,13 @@ public class ShippingController {
      * @return
      */
     @GetMapping("/shippings")
-    public ResponseView list(@RequestParam(required = false,defaultValue = "1") Integer pageNum,
-                             @RequestParam(required = false,defaultValue = "10") Integer pageSize,
-                             HttpSession session){
+    public ResponseVo list(@RequestParam(required = false,defaultValue = "1") Integer pageNum,
+                           @RequestParam(required = false,defaultValue = "10") Integer pageSize,
+                           HttpSession session){
         User user = (User) session.getAttribute(SmartConst.CURRENT_USER);
 
-        ResponseView<PageInfo> responseView = shippingService.list(user.getId(), pageNum, pageSize);
-        return responseView;
+        ResponseVo<PageInfo> responseVo = shippingService.list(user.getId(), pageNum, pageSize);
+        return responseVo;
 
 
     }

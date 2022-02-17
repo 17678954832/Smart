@@ -1,17 +1,16 @@
-package com.muhan.smart.view;
+package com.muhan.smart.vo;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @Author: Muhan.Zhou
- * @Description 商品详情
- * @Date 2022/2/8 15:14
+ * @Description 商品返回数据格式
+ * @Date 2022/2/4 19:47
  */
 @Data
-public class ProductDetailView {
+public class ProductVo {
     private Integer id;
 
     private Integer categoryId;
@@ -22,17 +21,7 @@ public class ProductDetailView {
 
     private String mainImage;
 
-    private String subImages;
-
-    private String detail;
-
     private BigDecimal price;
 
-    private Integer stock;
-
     private Integer status;
-
-    private Date createTime;
-
-    private Date updateTime;
 }

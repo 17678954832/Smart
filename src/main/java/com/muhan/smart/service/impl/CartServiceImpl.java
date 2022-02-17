@@ -9,9 +9,9 @@ import com.muhan.smart.form.CartUpdataForm;
 import com.muhan.smart.pojo.Cart;
 import com.muhan.smart.pojo.Product;
 import com.muhan.smart.service.ICartService;
-import com.muhan.smart.view.CartProductView;
-import com.muhan.smart.view.CartView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.CartProductVo;
+import com.muhan.smart.vo.CartVo;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -49,7 +49,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<CartView> add(Integer uid,CartAddForm cartAddForm) {
+    public ResponseVo<CartVo> add(Integer uid, CartAddForm cartAddForm) {
 
         //针对此接口，购物车数量永远是1
         Integer quntity = 1;
@@ -58,18 +58,18 @@ public class CartServiceImpl implements ICartService {
 
         //判断商品是否存在
         if (product == null){
-            return ResponseView.error(ResponseEnum.PRODUCT_NOT_EXIST);
+            return ResponseVo.error(ResponseEnum.PRODUCT_NOT_EXIST);
         }
 
         //商品是否正常在售
         if (!product.getStatus().equals(ProductStatusEnum.ON_SALE.getCode())){
-            return ResponseView.error(ResponseEnum.PRODUCT_OFF_SALE_OR_DELETE);
+            return ResponseVo.error(ResponseEnum.PRODUCT_OFF_SALE_OR_DELETE);
         }
 
         //商品库存是否足够
         //商品数量不用传，添加商品永远是以1累加，把一件商品加到购物车，只需要判断是否是大于0
         if (product.getStock() <= 0){
-            return ResponseView.error(ResponseEnum.PRODUCT_STOCK_ERROR);
+            return ResponseVo.error(ResponseEnum.PRODUCT_STOCK_ERROR);
         }
 
         //写入到redis
@@ -111,7 +111,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<CartView> list(Integer uid) {
+    public ResponseVo<CartVo> list(Integer uid) {
 
         //从redis获取购物车列表
         HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
@@ -129,8 +129,8 @@ public class CartServiceImpl implements ICartService {
         BigDecimal cartTotalPrice =  BigDecimal.ZERO;
 
 
-        CartView cartView = new CartView();
-        List<CartProductView> cartProductViewList = new ArrayList<>();
+        CartVo cartVo = new CartVo();
+        List<CartProductVo> cartProductVoList = new ArrayList<>();
 
         //遍历
         for (Map.Entry<String, String> entry : entries.entrySet()) {
@@ -144,7 +144,7 @@ public class CartServiceImpl implements ICartService {
             Product product = productMapper.selectByPrimaryKey(productId);
 
             if (product != null){
-                CartProductView cartProductView = new CartProductView(productId,
+                CartProductVo cartProductVo = new CartProductVo(productId,
                         cart.getQuantity(),
                         product.getName(),
                         product.getSubtitle(),
@@ -157,7 +157,7 @@ public class CartServiceImpl implements ICartService {
                         );
 
                 //将对象加入list
-                cartProductViewList.add(cartProductView);
+                cartProductVoList.add(cartProductVo);
 
                 //判断是否选中,如果未选中，
                 if (!cart.getProductSelected()){
@@ -170,7 +170,7 @@ public class CartServiceImpl implements ICartService {
                 //购物车总价 = 购物车里面所有商品的价格*商品的数量的和
                 //只计算选中的
                 if (cart.getProductSelected()) {
-                    cartTotalPrice = cartTotalPrice.add(cartProductView.getProductTotalPrice());
+                    cartTotalPrice = cartTotalPrice.add(cartProductVo.getProductTotalPrice());
                 }
 
             }
@@ -178,15 +178,15 @@ public class CartServiceImpl implements ICartService {
 
         //设置返回的数据
         //有一个没有选中，就不叫全选，
-        cartView.setSelectAll(selectedAll);
-        cartView.setCartTotalQuantity(cartTotalQuantity);  //总数
-        cartView.setCartTotalPrice(cartTotalPrice);  //购物车总价
+        cartVo.setSelectAll(selectedAll);
+        cartVo.setCartTotalQuantity(cartTotalQuantity);  //总数
+        cartVo.setCartTotalPrice(cartTotalPrice);  //购物车总价
         
         
         //将list存入cartView对象
-        cartView.setCartProductViewList(cartProductViewList);
+        cartVo.setCartProductVoList(cartProductVoList);
 
-        return ResponseView.success(cartView);
+        return ResponseVo.success(cartVo);
     }
 
     /**
@@ -197,7 +197,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<CartView> update(Integer uid, Integer productId, CartUpdataForm form) {
+    public ResponseVo<CartVo> update(Integer uid, Integer productId, CartUpdataForm form) {
 
         //先从redis里面读取数据出来
         HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
@@ -211,7 +211,7 @@ public class CartServiceImpl implements ICartService {
         //如果value是空的
         if (StringUtils.isEmpty(value)){
             //redis里面没有该商品，报错
-            return ResponseView.error(ResponseEnum.CART_PRODUCT_NOT_EXIST);
+            return ResponseVo.error(ResponseEnum.CART_PRODUCT_NOT_EXIST);
         }
 
         //如果读出来已经有该商品，修改内容
@@ -239,7 +239,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<CartView> delete(Integer uid, Integer productId) {
+    public ResponseVo<CartVo> delete(Integer uid, Integer productId) {
 
         //先从redis里面读取数据出来
         HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
@@ -252,7 +252,7 @@ public class CartServiceImpl implements ICartService {
 
         //如果redis里面没有该商品，报错
         if (StringUtils.isEmpty(value)){
-            return ResponseView.error(ResponseEnum.CART_PRODUCT_NOT_EXIST);
+            return ResponseVo.error(ResponseEnum.CART_PRODUCT_NOT_EXIST);
         }
 
         //删除购物车商品
@@ -268,7 +268,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<CartView> selectAll(Integer uid) {
+    public ResponseVo<CartVo> selectAll(Integer uid) {
         //从redis获取购物车列表
         HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
         String redisKey =String.format(CART_REDIS_KEY_TEMPLATE,uid);
@@ -292,7 +292,7 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<CartView> unSelectAll(Integer uid) {
+    public ResponseVo<CartVo> unSelectAll(Integer uid) {
         //从redis获取购物车列表
         HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
         String redisKey =String.format(CART_REDIS_KEY_TEMPLATE,uid);
@@ -316,12 +316,12 @@ public class CartServiceImpl implements ICartService {
      * @return
      */
     @Override
-    public ResponseView<Integer> sum(Integer uid) {
+    public ResponseVo<Integer> sum(Integer uid) {
         //从0开始累加
         Integer sum = listForCart(uid).stream()
                 .map(Cart::getQuantity)
                 .reduce(0, Integer::sum);
-        return ResponseView.success(sum);
+        return ResponseVo.success(sum);
     }
 
 
@@ -329,7 +329,7 @@ public class CartServiceImpl implements ICartService {
      * 遍历购物车的方法
      * @return
      */
-    private List<Cart> listForCart(Integer uid){
+    public List<Cart> listForCart(Integer uid){
         //从redis获取购物车列表
         HashOperations<String, String, String> opsForHash = redisTemplate.opsForHash();
         String redisKey =String.format(CART_REDIS_KEY_TEMPLATE,uid);

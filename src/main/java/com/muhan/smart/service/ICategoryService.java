@@ -1,7 +1,7 @@
 package com.muhan.smart.service;
 
-import com.muhan.smart.view.CategoryView;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.CategoryVo;
+import com.muhan.smart.vo.ResponseVo;
 
 import java.util.List;
 import java.util.Set;
@@ -17,7 +17,7 @@ public interface ICategoryService {
      * 查询所有分类
      * @return
      */
-    ResponseView<List<CategoryView>> selectAll();
+    ResponseVo<List<CategoryVo>> selectAll();
 
 
     /**

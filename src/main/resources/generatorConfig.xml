@@ -74,8 +74,9 @@
         </table>-->
 
         <!--Shiping表-->
-        <table tableName="mall_shipping" domainObjectName="Shipping" enableCountByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <!--<table tableName="mall_shipping" domainObjectName="Shipping" enableCountByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>-->
+
 
     </context>
 </generatorConfiguration>

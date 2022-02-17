@@ -1,7 +1,7 @@
 package com.muhan.smart.service;
 
 import com.muhan.smart.pojo.User;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 
 /**
  * @Author: Muhan.Zhou
@@ -13,11 +13,11 @@ public interface IUserService {
     /**
      * 注册
      */
-    ResponseView<User> register(User user);
+    ResponseVo<User> register(User user);
 
 
     /**
      * 登录
      */
-    ResponseView<User> login(String username,String password);
+    ResponseVo<User> login(String username, String password);
 }

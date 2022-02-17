@@ -38,7 +38,7 @@ public class UserLoginInterceptor implements HandlerInterceptor {
             throw new UserLoginException();
 
             //return false;
-            //return ResponseView.error(ResponseEnum.NEED_LOGIN);
+            //return ResponseVo.error(ResponseEnum.NEED_LOGIN);
         }
         return true;
     }

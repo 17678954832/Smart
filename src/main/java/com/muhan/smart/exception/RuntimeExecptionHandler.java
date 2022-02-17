@@ -1,7 +1,7 @@
 package com.muhan.smart.exception;
 
 import com.muhan.smart.enums.ResponseEnum;
-import com.muhan.smart.view.ResponseView;
+import com.muhan.smart.vo.ResponseVo;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -20,8 +20,8 @@ public class RuntimeExecptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseBody
-    public ResponseView handle(RuntimeException e){
-        return ResponseView.error(ResponseEnum.ERROR,e.getMessage());
+    public ResponseVo handle(RuntimeException e){
+        return ResponseVo.error(ResponseEnum.ERROR,e.getMessage());
     }
 
     /**
@@ -30,17 +30,17 @@ public class RuntimeExecptionHandler {
      */
     @ExceptionHandler(UserLoginException.class)
     @ResponseBody
-    public ResponseView userLoginHandle(){
-        return ResponseView.error(ResponseEnum.NEED_LOGIN);
+    public ResponseVo userLoginHandle(){
+        return ResponseVo.error(ResponseEnum.NEED_LOGIN);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public ResponseView methodArgumentNotValidException(MethodArgumentNotValidException e){
+    public ResponseVo methodArgumentNotValidException(MethodArgumentNotValidException e){
 
         BindingResult bindingResult = e.getBindingResult();
         Objects.requireNonNull(bindingResult.getFieldError());
-        return ResponseView.error(ResponseEnum.PARAM_ERROR,
+        return ResponseVo.error(ResponseEnum.PARAM_ERROR,
                 bindingResult.getFieldError().getField() + "  " + bindingResult.getFieldError().getDefaultMessage());
 
     }

@@ -1,4 +1,4 @@
-package com.muhan.smart.view;
+package com.muhan.smart.vo;
 
 import lombok.Data;
 
@@ -11,8 +11,8 @@ import java.util.List;
  * @Date 2022/2/9 20:29
  */
 @Data
-public class CartView {
-    private List<CartProductView> cartProductViewList;
+public class CartVo {
+    private List<CartProductVo> cartProductVoList;
 
     private Boolean selectAll;  //是否全选
 
