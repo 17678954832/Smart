@@ -1,0 +1,43 @@
+#本地开发-线上rds数据库测试环境
+# 数据库配置
+spring:
+  #mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Zhouyongjun995@
+    url: jdbc:mysql://rm-bp1k9bnaa7cfvg698eo.mysql.rds.aliyuncs.com:3306/malldb?characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+  #redis  没有设置密码，不用配置密码
+  redis:
+    host: 127.0.0.1
+    port: 6379
+  #mq
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+
+#配置映射，实体类和数据库字段可以不对应，
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    #控制台日志配置
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #mapper.xml文件扫描路径
+  mapper-locations: classpath:mappers/*.xml
+
+#修改日志
+logging:
+  pattern:
+    console: "[%thread] %-5level %logger{36} - %msg%n"
+
+#session过期时间，单位是秒
+server:
+  servlet:
+    session:
+      timeout: 120
+
+
+
+
