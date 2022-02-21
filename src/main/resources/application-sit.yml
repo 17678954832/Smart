@@ -31,6 +31,7 @@ mybatis:
 logging:
   pattern:
     console: "[%thread] %-5level %logger{36} - %msg%n"
+  path: /usr/local/jdk/app_logs/smart_logs
 
 #session过期时间，单位是秒
 server:

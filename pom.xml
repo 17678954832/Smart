@@ -122,7 +122,6 @@
                 <version>2.1.17.RELEASE</version>
                 <configuration>
                     <mainClass>com.muhan.smart.SmartApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -147,6 +146,7 @@
             </plugin>
 
         </plugins>
+    <finalName>smart_v1.0</finalName>
     </build>
 
 </project>
